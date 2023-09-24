@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import USERS_API from '../API/UsersApi';
-
-export function NewUserForm() {
+ 
+export function NewUserForm({ getUsers}) {
   const [newUserName, setNewUserName] = useState('');
   const [newUserJobTitle, setNewUserJobTitle] = useState('');
   const [newUserCompanyName, setNewUserCompanyName] = useState('');
-  const [users,setUsers] = useState('')
+ 
 
-  function getUsers(){
-    fetch(USERS_API)
-    .then(data => data.json())
-    .then(data => setUsers(data))
-  }
-  
-  useEffect(() => {
-    getUsers()
-  }, []);
+
 
   function postNewUser(e){
     e.preventDefault()
@@ -35,16 +27,30 @@ export function NewUserForm() {
 
 
   return (
+    <div className='container'>
     <form>
     <h3> POST New User Form</h3>
     <label>Name</label>
-    <input onChange={(e) => setNewUserName(e.target.value)} ></input>
+    <input 
+    placeholder='Enter Name' 
+    onChange={(e) => setNewUserName(e.target.value)} />
+    <br></br>
     <label>Job Title</label>
-    <input onChange={(e) => setNewUserJobTitle(e.target.value)}></input>
+    <input 
+    placeholder='Enter Job Title' 
+    onChange={(e) => setNewUserJobTitle(e.target.value)}/>
+    <br></br>
     <label>Company Name</label>
-    <input onChange={(e) => setNewUserCompanyName(e.target.value)}></input>
-    <button onClick={(e) => postNewUser(e)}>Submit</button>
+    <input 
+    placeholder='Enter Company Name' 
+    onChange={(e) => setNewUserCompanyName(e.target.value)}/>
+    <br></br>
+    <button 
+    className='btn btn-success' 
+    onClick={(e) => postNewUser(e)}
+      >Submit</button>
   </form>
+  </div>
   );
 }
 

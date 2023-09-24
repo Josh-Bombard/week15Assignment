@@ -7,6 +7,7 @@ export default function UpdateUser({getUsers, user}) {
   const [updatedJobTitle, setUpdatedJobTitle] = useState('');
   const [updatedCompanyName, setUpdatedCompanyName] = useState('');
 
+
   function updateUser(e, userObject){
     e.preventDefault();
     
@@ -24,18 +25,44 @@ export default function UpdateUser({getUsers, user}) {
           'Content-Type':'application/json'
         }
       }).then(() => getUsers())
+
+      
     }
 
   return (
-    <form>
-    <h3>Update this user</h3>
-    <label>Update Name</label>
-    <input onChange={(e) => setUpdatedName(e.target.value)} ></input><br></br>
-    <label>Update Job Title</label>
-    <input onChange={(e) => setUpdatedJobTitle(e.target.value)}></input><br></br>
-    <label>Update Company Name</label>
-    <input onChange={(e) => setUpdatedCompanyName(e.target.value)}></input><br></br>
-    <button onClick={(e) => updateUser(e, user)} >Update User</button>
-  </form>
-  )
+ 
+          <form>
+            <h3>Update this user</h3>
+            <label>Update Name</label>
+            <input
+            className='update-input'
+              placeholder="Enter New Name"
+              onChange={(e) => setUpdatedName(e.target.value)}
+            ></input>
+            <br></br>
+            <label>Update Job Title</label>
+            <input
+            className='update-input'
+              placeholder="Enter New Job Title"
+              onChange={(e) => setUpdatedJobTitle(e.target.value)}
+            ></input>
+            <br></br>
+            <label>Update Company Name</label>
+            <input
+            className='update-input'
+              placeholder="New Company Name"
+              onChange={(e) => setUpdatedCompanyName(e.target.value)}
+            ></input>
+            <br></br>
+            <br></br>
+            <button
+              className="btn btn-warning"
+              onClick={(e) => updateUser(e, user)}
+            >
+              Update User
+            </button>
+          </form>
+   
+);
+  
 }

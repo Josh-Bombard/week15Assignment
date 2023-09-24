@@ -1,19 +1,14 @@
-import React, {useState, useEffect} from 'react' 
+import React from 'react' 
 import UpdateUser from './UpdateUser';
 import USERS_API from '../API/UsersApi';
 
-function User() {
-  const [users, setUsers] = useState([{}]);
+function User({ users, getUsers}) {
 
- function getUsers(){
-    fetch(USERS_API)
-    .then(data => data.json())
-    .then(data => setUsers(data))
-  }
-  
-  useEffect(() => {
+
+  const handleGetUsers = () => {
     getUsers()
-  }, []);
+  }
+
 
   
 
@@ -22,19 +17,24 @@ function User() {
       method: 'DELETE',
     }).then(() => getUsers())}
 
-
+    console.log('Render User component');
 
   return (
     <div id='userCard' className='card'>
        {users.map((user,index) =>(
         <div className='user-container' key ={index}>
-         <div >
+         <div className='user'>
           Name: {user.name} <br></br>
           Job Title: {user.jobTitle} <br></br>
-          Company Name: {user.companyName} <br></br>
-          <button onClick={() =>deleteUser(user.id)} >🗑</button>
+          Company Name: {user.companyName} <br></br><br></br>
+          <button 
+          className='btn btn-danger' 
+          onClick={() =>deleteUser(user.id)} 
+            >🗑</button>
          </div>
-          <UpdateUser user={user} getUsers={getUsers}/>
+          <UpdateUser
+           user={user} 
+           getUsers={handleGetUsers}/>
         </div> 
       ))}
     </div>
